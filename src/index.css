@@ -8,11 +8,70 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-   
+    /* Base colors from the website */
+    --background: 39 31 16; /* #F9F7F1 converted to HSL */
+    --foreground: 30 2 9; /* #161615 */
+    
+    /* Primary brand colors */
+    --primary: 354 89 63; /* #FF586A - main red/pink */
+    --primary-foreground: 0 0 100;
+    
+    /* Macaron gradient colors */
+    --macaron-start: 354 89 63; /* #FF586A */
+    --macaron-end: 8 96 53; /* #FC4C53 */
+    
+    /* Accent colors */
+    --accent-orange: 25 100 57; /* #FF5816 */
+    --accent-yellow: 53 82 59; /* #EADE39 */
+    --accent-green: 83 62 41; /* #8CA72B */
+    --accent-pink: 353 100 80; /* #FF98A2 */
+    
+    /* Neutral colors */
+    --muted: 48 9 86; /* #DDDDDB */
+    --muted-foreground: 39 6 33; /* #595856 */
+    --card: 39 31 16;
+    --card-foreground: 30 2 9;
+    
+    /* Borders and inputs */
+    --border: 39 15 89; /* #E9E7E2 */
+    --input: 39 15 89;
+    --ring: 354 89 63;
+    
+    /* Secondary colors */
+    --secondary: 39 31 16;
+    --secondary-foreground: 30 2 9;
+    
+    /* Destructive */
+    --destructive: 0 84 60;
+    --destructive-foreground: 0 0 98;
+    
+    /* Popover */
+    --popover: 39 31 16;
+    --popover-foreground: 30 2 9;
+    
+    --radius: 0.75rem;
   }
 
   .dark {
-
+    --background: 30 2 9;
+    --foreground: 0 0 98;
+    --card: 30 2 9;
+    --card-foreground: 0 0 98;
+    --popover: 30 2 9;
+    --popover-foreground: 0 0 98;
+    --primary: 354 89 63;
+    --primary-foreground: 0 0 98;
+    --secondary: 30 7 15;
+    --secondary-foreground: 0 0 98;
+    --muted: 30 7 15;
+    --muted-foreground: 0 0 64;
+    --accent: 30 7 15;
+    --accent-foreground: 0 0 98;
+    --destructive: 0 84 60;
+    --destructive-foreground: 0 0 98;
+    --border: 30 7 15;
+    --input: 30 7 15;
+    --ring: 354 89 63;
   }
 }
 
@@ -22,6 +81,102 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-[#F9F7F1] text-foreground font-sans;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Times New Roman', Times, serif;
+  }
+}
+
+@layer components {
+  /* Macaron gradient button */
+  .bg-macaron-gradient {
+    background: linear-gradient(135deg, hsl(var(--macaron-start)) 0%, hsl(var(--macaron-end)) 100%);
+  }
+  
+  /* Noise background effect */
+  .noise-background {
+    position: relative;
+  }
+  
+  .noise-background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.1;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+  
+  /* Hero section background */
+  .hero-radial-bg {
+    background: radial-gradient(ellipse at top, #FFE6D1, #F9F7F1);
+    background-position: -10% 0%;
+    background-size: 120% 100%;
+  }
+  
+  /* Macaron button hover effects */
+  .macaron-hover-effect {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .macaron-hover-effect:hover {
+    transform: rotate(10deg) translateX(-10px);
+  }
+  
+  /* Card hover effects */
+  .playbook-card {
+    transition: all 0.3s ease-out;
+  }
+  
+  .playbook-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+  
+  .playbook-card:hover .playbook-screenshot {
+    transform: translateY(-12px);
+  }
+  
+  .playbook-screenshot {
+    transition: transform 0.3s ease-out;
+  }
+  
+  /* YouTube play button pulse */
+  .play-button {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary) / 0.8);
 }
